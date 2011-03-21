@@ -1,0 +1,34 @@
+#ifndef UNARYSHADOWEXPRESSION_H_
+#define UNARYSHADOWEXPRESSION_H_
+
+#include "UnaryExpression.h"
+
+namespace expr {
+
+	template <class T>
+	class UnaryShadowExpression : public UnaryExpression<T> {
+	public:
+		UnaryShadowExpression(UnaryExpression<T>* target);
+		virtual ~UnaryShadowExpression() {};
+
+		T evaluate(const Expression<T>* operand) const;
+		void setTarget(UnaryExpression *target);
+
+	private:
+		UnaryExpression<T>* target;
+	};
+
+	template<class T>
+	UnaryShadowExpression<T>::UnaryShadowExpression(UnaryExpression<T>* target)
+	: target(target)
+	{
+	}
+
+	template<class T>
+	T UnaryShadowExpression<T>::evaluate(const Expression<T>* operand) const
+	{
+		return this->target->evaluate(operand);
+	}
+}
+
+#endif /* UNARYSHADOWEXPRESSION_H_ */
