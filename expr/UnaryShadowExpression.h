@@ -29,6 +29,12 @@ namespace expr {
 	{
 		return this->target->evaluate(operand);
 	}
+
+	template<class T>
+	void UnaryShadowExpression<T>::setTarget(UnaryExpression<T> *target)
+	{
+		this->target = target;
+	}
 }
 
 #endif /* UNARYSHADOWEXPRESSION_H_ */

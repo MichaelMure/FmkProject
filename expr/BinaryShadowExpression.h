@@ -29,6 +29,12 @@ namespace expr {
 	{
 		return this->target->evaluate(l, r);
 	}
+
+	template<class T>
+	void BinaryShadowExpression<T>::setTarget(BinaryExpression<T> *target)
+	{
+		this->target = target;
+	}
 }
 
 #endif /* BINARYSHADOWEXPRESSION_H_ */
