@@ -12,7 +12,7 @@ namespace expr {
 		virtual ~UnaryShadowExpression() {};
 
 		T evaluate(const Expression<T>* operand) const;
-		void setTarget(UnaryExpression *target);
+		void setTarget(UnaryExpression<T> *target);
 
 	private:
 		UnaryExpression<T>* target;

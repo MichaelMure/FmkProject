@@ -12,7 +12,7 @@ namespace expr {
 		virtual ~BinaryShadowExpression() {};
 
 		T evaluate(const Expression<T>* l, const Expression<T>* r) const;
-		void setTarget(BinaryExpression *target);
+		void setTarget(BinaryExpression<T> *target);
 
 	private:
 		BinaryExpression<T>* target;
