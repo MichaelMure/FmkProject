@@ -9,7 +9,7 @@
 namespace expr {
 
 	template <class T>
-	class BinaryExpressionModel : public BinaryExpression<T>, Expression<T> {
+	class BinaryExpressionModel : public BinaryExpression<T>, public Expression<T> {
 	public:
 		BinaryExpressionModel(Expression<T>* left, Expression<T>* right, BinaryExpression<T>* _operator);
 		virtual ~BinaryExpressionModel() {};

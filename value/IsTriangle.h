@@ -28,6 +28,7 @@ namespace value {
 
 			if(value > this->middle)
 							return (this->middle - this->max) / (value - this->max) ;
+			return 0;
 		}
 
 	};

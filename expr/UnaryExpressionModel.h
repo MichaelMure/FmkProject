@@ -8,7 +8,7 @@
 namespace expr {
 
 	template <class T>
-	class UnaryExpressionModel : public UnaryExpression<T>, Expression<T> {
+	class UnaryExpressionModel : public UnaryExpression<T>, public Expression<T> {
 	public:
 		UnaryExpressionModel(Expression<T>* operand, UnaryExpression<T>* _operator);
 		virtual ~UnaryExpressionModel() {};

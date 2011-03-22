@@ -14,6 +14,8 @@ namespace op {
 	template<class T>
 	T MamdaniDefuzz <T>::evaluate(const expr::Expression<T>* left, const expr::Expression<T>* right) const
 	{
+		//TODO
+		return 0;
 		//return defuzz()
 	}
 

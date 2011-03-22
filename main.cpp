@@ -6,6 +6,7 @@
 using namespace expr;
 using namespace std;
 using namespace op;
+using namespace value;
 
 void testOp()
 {
@@ -61,10 +62,11 @@ void testExample()
 	AndMin<int> opAnd;
 	OrMax<int> opOr;
 	ThenMin<int> opThen;
+	AggMax<int> opAgg;
 	CogDefuzz<int> opDefuzz;
 
 	//fuzzy expession factory
-	FuzzyFactory<int> f	(&opNot,&opAnd,&opOr,&opThen,&opOr,&opDefuzz);
+	FuzzyFactory<int> f	(&opNot,&opAnd,&opOr,&opThen,&opAgg,&opDefuzz);
 
 	//membership function
 	IsTriangle<int> poor(-5,0,5);
@@ -75,38 +77,38 @@ void testExample()
 	IsTriangle<int> generous(20,25,30);
 
 	//values
-	Value<int> service(0);
-	Value<int> food(0);
-	BoundedValue tips(0,0,30,1);
+	ValueModel<int> service(0);
+	ValueModel<int> food(5);
+	ValueModel<int> tips(0);
 
-	Expression *r =
-			f.NewAgg(
-					f.NewAgg(
-							f.NewThen(
-									f.NewIs(&service,&poor),
-									f.NewIs(&tips,&cheap)
+	Expression<int> *r =
+			f.newAgg(
+					f.newAgg(
+							f.newThen(
+									f.newIs(&service,&poor),
+									f.newIs(&tips,&cheap)
 							),
-							f.NewThen(
-									f.NewIs(&service,&good),
-									f.NewIs(&tips,&average)
+							f.newThen(
+									f.newIs(&service,&good),
+									f.newIs(&tips,&average)
 							)
 					),
-					f.NewThen(
-							f.NewIs(&service,&excellent),
-							f.NewIs(&tips,&generous)
+					f.newThen(
+							f.newIs(&service,&excellent),
+							f.newIs(&tips,&generous)
 					)
 			);
 
 	//defuzzification
-	Expression *system = f.NewDefuzz(&tips,r);
+	Expression<int> *system = f.newDefuzz(&tips,r);
 
 	//apply input
 	float s;
 	while(true)
 	{
 		cout << "service : ";cin >> s;
-		service.SetValue(s);
-		cout << "tips -> " << system->Evaluate() << endl;
+		service.setValue(s);
+		cout << "tips -> " << system->evaluate() << endl;
 	}
 }
 
