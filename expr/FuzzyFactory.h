@@ -32,8 +32,8 @@ namespace expr {
 		void changeNot(op::Not<T>* o);
 
 	private:
-		UnaryExpression<T> *opNot;
-		BinaryExpression<T> *opAnd, *opOr, *opThen, *opAgg, *opDefuzz;
+		UnaryShadowExpression<T> *opNot;
+		BinaryShadowExpression<T> *opAnd, *opOr, *opThen, *opAgg, *opDefuzz;
 	};
 
 	template<class T>
@@ -43,7 +43,12 @@ namespace expr {
 						op::Then<T> *opThen,
 						op::Agg<T> *opAgg,
 						op::Defuzz<T> *opDefuzz)
-	: opNot(opNot), opAnd(opAnd), opOr(opOr), opThen(opThen), opAgg(opAgg), opDefuzz(opDefuzz)
+	: opNot(UnaryShadowExpression<T>(opNot)),
+	  opAnd(BinaryShadowExpression<T>(opAnd)),
+	  opOr(BinaryShadowExpression<T>(opOr)),
+	  opThen(BinaryShadowExpression<T>(opThen)),
+	  opAgg(BinaryShadowExpression<T>(opAgg)),
+	  opDefuzz(BinaryShadowExpression<T>(opDefuzz))
 	{
 	}
 

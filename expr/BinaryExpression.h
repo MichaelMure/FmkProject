@@ -1,6 +1,8 @@
 #ifndef BINARYEXPRESSION_H_
 #define BINARYEXPRESSION_H_
 
+#include "Expression.h"
+
 namespace expr {
 
 	template<class T>
