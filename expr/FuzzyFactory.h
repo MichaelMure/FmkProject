@@ -43,12 +43,12 @@ namespace expr {
 						op::Then<T> *opThen,
 						op::Agg<T> *opAgg,
 						op::Defuzz<T> *opDefuzz)
-	: opNot(UnaryShadowExpression<T>(opNot)),
-	  opAnd(BinaryShadowExpression<T>(opAnd)),
-	  opOr(BinaryShadowExpression<T>(opOr)),
-	  opThen(BinaryShadowExpression<T>(opThen)),
-	  opAgg(BinaryShadowExpression<T>(opAgg)),
-	  opDefuzz(BinaryShadowExpression<T>(opDefuzz))
+	: opNot(new UnaryShadowExpression<T>(opNot)),
+	  opAnd(new BinaryShadowExpression<T>(opAnd)),
+	  opOr(new BinaryShadowExpression<T>(opOr)),
+	  opThen(new BinaryShadowExpression<T>(opThen)),
+	  opAgg(new BinaryShadowExpression<T>(opAgg)),
+	  opDefuzz(new BinaryShadowExpression<T>(opDefuzz))
 	{
 	}
 
