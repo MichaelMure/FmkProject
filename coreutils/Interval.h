@@ -6,7 +6,7 @@ namespace coreutils {
 	template<class T>
 	class Interval {
 	public:
-		Interval(int min, int max, int step);
+		Interval(T min, T max, T step);
 		virtual ~Interval(){};
 
 		void start();
@@ -18,8 +18,8 @@ namespace coreutils {
 	};
 
 	template<class T>
-	Interval<T>::Interval(T _min, T _max, T _step)
-	: min(_min), max(_max), step(_step), current(_min)
+	Interval<T>::Interval(T min, T max, T step)
+	: min(min), max(max), step(step), current(min)
 	{
 	}
 

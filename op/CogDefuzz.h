@@ -7,11 +7,19 @@ namespace op {
 	template<class T>
 	class CogDefuzz : public MamdaniDefuzz<T>{
 	public:
-		virtual T evaluate(const expr::Expression<T>* left, const expr::Expression<T>* right) const;
+		CogDefuzz(coreutils::Interval<T>* interval);
+
+		virtual T defuzz(coreutils::Shape<T> shape) const;
 	};
 
 	template<class T>
-	T CogDefuzz <T>::evaluate(const expr::Expression<T>* left, const expr::Expression<T>* right) const
+	CogDefuzz<T>::CogDefuzz(coreutils::Interval<T> *interval)
+	: MamdaniDefuzz<T>(interval)
+	{
+	}
+
+	template<class T>
+	T CogDefuzz <T>::defuzz(coreutils::Shape<T> shape) const
 	{
 		//TODO
 		return 0;

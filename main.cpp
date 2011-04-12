@@ -1,12 +1,14 @@
 #include <iostream>
-#include "expr/expr.h"
-#include "op/op.h"
-#include "value/value.h"
+#include "expr.h"
+#include "op.h"
+#include "value.h"
+#include "coreutils.h"
 
 using namespace expr;
 using namespace std;
 using namespace op;
 using namespace value;
+using namespace coreutils;
 
 void testOp()
 {
@@ -57,13 +59,15 @@ void testOp()
 
 void testExample()
 {
+	//utils
+	Interval<int> interval = Interval<int>(-10, 10, 1);
 	//operators
 	NotMinus1<int> opNot;
 	AndMin<int> opAnd;
 	OrMax<int> opOr;
 	ThenMin<int> opThen;
 	AggMax<int> opAgg;
-	CogDefuzz<int> opDefuzz;
+	CogDefuzz<int> opDefuzz = CogDefuzz<int>(&interval);
 
 	//fuzzy expession factory
 	FuzzyFactory<int> f	(&opNot,&opAnd,&opOr,&opThen,&opAgg,&opDefuzz);
