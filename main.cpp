@@ -57,10 +57,20 @@ void testOp()
 	delete orplus;
 }
 
+void testShape()
+{
+	//utils
+	Interval<int> interval = Interval<int>(0, 30, 1);
+
+	//Is
+	IsTriangle<int> tri = IsTriangle<int>(5, 10, 15);
+
+}
+
 void testExample()
 {
 	//utils
-	Interval<int> interval = Interval<int>(-10, 10, 1);
+	Interval<int> interval = Interval<int>(0, 30, 1);
 	//operators
 	NotMinus1<int> opNot;
 	AndMin<int> opAnd;

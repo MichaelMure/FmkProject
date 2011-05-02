@@ -32,13 +32,13 @@ namespace coreutils {
 	template<class T>
 	bool Interval<T>::hasNext()
 	{
-		return ((this->current + this->step) <= this->max);
+		return (this->current <= this->max);
 	}
 
 	template<class T>
 	T Interval<T>::next()
 	{
-		if(((this->current + this->step) <= this->max))
+		if((this->current) > this->max)
 			throw(std::exception());
 
 		T value = this->current;

@@ -20,6 +20,8 @@ namespace value {
 		T evaluate(const expr::Expression<T>* operand) const
 		{
 			T value = operand->evaluate();
+			std::cout << "IsTriangle: value=" << value << std::endl;
+
 			if(value <= this->min || value >= this->max)
 				return 0;
 

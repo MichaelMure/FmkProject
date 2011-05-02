@@ -21,8 +21,24 @@ namespace op {
 	template<class T>
 	T CogDefuzz <T>::defuzz(coreutils::Shape<T> shape) const
 	{
-		//TODO
-		return 0;
+		T num = 0;
+		T denom = 0;
+		std::pair<T, T> value;
+
+		shape.start();
+
+		while (shape.hasNext())
+		{
+			value = shape.next();
+
+			num += value.first * value.second;
+			denom += value.second;
+		}
+
+		if (denom == 0)
+			return 0;
+
+		return num / denom;
 	}
 
 }
