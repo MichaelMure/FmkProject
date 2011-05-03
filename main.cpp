@@ -114,7 +114,7 @@ void testExample()
 			);
 
 	//defuzzification
-	Expression<int> *system = f.newDefuzz(&tips,r);
+	Expression<int> *system = f.newDefuzz(r,&tips);
 
 	//apply input
 	float s;
