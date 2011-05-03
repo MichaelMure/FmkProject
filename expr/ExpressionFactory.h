@@ -17,6 +17,7 @@ namespace expr {
 		ValueModel<T>* newValue(value::Is<T>*);
 		UnaryExpressionModel<T>* newUnary(UnaryExpression<T>* ope, Expression<T>* o);
 		BinaryExpressionModel<T>* newBinary(BinaryExpression<T>* ope, Expression<T>* l, Expression<T>* r);
+		NaryExpressionModel<T>* newNary(NaryExpression<T>* ope, std::vector<Expression<T>*> operands);
 
 	private:
 		std::set<Expression<T>* > *memory;
@@ -58,6 +59,11 @@ namespace expr {
 		return new BinaryExpressionModel<T>(ope, l, r);
 	}
 
+	template<class T>
+	NaryExpressionModel<T>* ExpressionFactory<T>::newNary(NaryExpression<T>* ope, std::vector<Expression<T>*> operands)
+	{
+		return new NaryExpressionModel<T>(ope, operands);
+	}
 }
 
 #endif /* EXPRESSIONFACTORY_H_ */

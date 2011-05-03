@@ -2,7 +2,6 @@
 #define NARYEXPRESSIONMODEL_H_
 
 #include <exception>
-#include <vector>
 #include "Expression.h"
 #include "NaryExpression.h"
 
