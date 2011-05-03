@@ -5,6 +5,7 @@
 #include "UnaryShadowExpression.h"
 #include "BinaryExpressionModel.h"
 #include "UnaryExpressionModel.h"
+#include "NaryExpressionModel.h"
 #include "ValueModel.h"
 #include "ExpressionFactory.h"
 #include "FuzzyFactory.h"
