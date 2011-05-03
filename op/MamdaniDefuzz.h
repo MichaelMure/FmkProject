@@ -1,12 +1,12 @@
 #ifndef MAMDANIDEFUZZ_H_
 #define MAMDANIDEFUZZ_H_
 
-#include "Defuzz.h"
 #include "coreutils.h"
+#include "BinaryExpression.h"
 
 namespace op {
 	template<class T>
-	class MamdaniDefuzz : public Defuzz<T>{
+	class MamdaniDefuzz : public expr::BinaryExpression<T>{
 	public:
 		MamdaniDefuzz(coreutils::Interval<T>* interval);
 

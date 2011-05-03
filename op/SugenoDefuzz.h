@@ -1,17 +1,17 @@
 #ifndef SUGENODEFUZZ_H_
 #define SUGENODEFUZZ_H_
 
-#include "Defuzz.h"
+#include "NaryExpression.h"
 
 namespace op {
 	template<class T>
-	class SugenoDefuzz : public Defuzz<T>{
+	class SugenoDefuzz : public expr::NaryExpression<T>{
 	public:
-		virtual T evaluate(const expr::Expression<T>* left, const expr::Expression<T>* right) const;
+		virtual T evaluate(std::vector<expr::Expression<T>*> operands) const;
 	};
 
 	template<class T>
-	T SugenoDefuzz <T>::evaluate(const expr::Expression<T>* left, const expr::Expression<T>* right) const
+	T SugenoDefuzz <T>::evaluate(std::vector<expr::Expression<T>*> operands) const
 	{
 		//TODO
 		return 0;

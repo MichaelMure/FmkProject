@@ -77,10 +77,11 @@ void testExample()
 	OrMax<float> opOr;
 	ThenMin<float> opThen;
 	AggMax<float> opAgg;
-	CogDefuzz<float> opDefuzz = CogDefuzz<float>(&interval);
+	CogDefuzz<float> opMamdani = CogDefuzz<float>(&interval);
+	SugenoDefuzz<float> opSugeno = SugenoDefuzz<float>();
 
 	//fuzzy expession factory
-	FuzzyFactory<float> f	(&opNot,&opAnd,&opOr,&opThen,&opAgg,&opDefuzz);
+	FuzzyFactory<float> f	(&opNot,&opAnd,&opOr,&opThen,&opAgg,&opMamdani, &opSugeno);
 
 	//membership function
 	IsTriangle<float> poor(-5,0,5);
@@ -114,7 +115,7 @@ void testExample()
 			);
 
 	//defuzzification
-	Expression<float> *system = f.newDefuzz(r,&tips);
+	Expression<float> *system = f.newMamdani(r,&tips);
 
 	//apply input
 	float s;

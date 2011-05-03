@@ -14,13 +14,15 @@ namespace expr {
 					op::Or<T> *opOr,
 					op::Then<T> *opThen,
 					op::Agg<T> *opAgg,
-					op::Defuzz<T> *opDefuzz);
+					op::MamdaniDefuzz<T> *opMamdani,
+					op::SugenoDefuzz<T> *opSugeno);
 
 		Expression<T>* newAnd(Expression<T>* l, Expression<T>* r);
 		Expression<T>* newOr(Expression<T>* l, Expression<T>* r);
 		Expression<T>* newThen(Expression<T>* l, Expression<T>* r);
 		Expression<T>* newAgg(Expression<T>* l, Expression<T>* r);
-		Expression<T>* newDefuzz(Expression<T>* l, Expression<T>* r);
+		Expression<T>* newMamdani(Expression<T>* l, Expression<T>* r);
+		Expression<T>* newSugeno(std::vector<Expression<T>*> operands);
 		Expression<T>* newNot(Expression<T>* o);
 		Expression<T>* newIs(Expression<T>* o, value::Is<T>* is);
 
@@ -28,12 +30,14 @@ namespace expr {
 		void changeOr(op::Or<T>* o);
 		void changeThen(op::Then<T>* o);
 		void changeAgg(op::Agg<T>* o);
-		void changeDefuzz(op::Defuzz<T>* o);
+		void changeMamdani(op::MamdaniDefuzz<T>* o);
+		void changeSugeno(op::SugenoDefuzz<T>* o);
 		void changeNot(op::Not<T>* o);
 
 	private:
 		UnaryShadowExpression<T> *opNot;
-		BinaryShadowExpression<T> *opAnd, *opOr, *opThen, *opAgg, *opDefuzz;
+		BinaryShadowExpression<T> *opAnd, *opOr, *opThen, *opAgg, *opMamdani;
+		NaryShadowExpression<T> *opSugeno;
 	};
 
 	template<class T>
@@ -42,13 +46,15 @@ namespace expr {
 						op::Or<T> *opOr,
 						op::Then<T> *opThen,
 						op::Agg<T> *opAgg,
-						op::Defuzz<T> *opDefuzz)
+						op::MamdaniDefuzz<T> *opMamdani,
+						op::SugenoDefuzz<T> *opSugeno)
 	: opNot(new UnaryShadowExpression<T>(opNot)),
 	  opAnd(new BinaryShadowExpression<T>(opAnd)),
 	  opOr(new BinaryShadowExpression<T>(opOr)),
 	  opThen(new BinaryShadowExpression<T>(opThen)),
 	  opAgg(new BinaryShadowExpression<T>(opAgg)),
-	  opDefuzz(new BinaryShadowExpression<T>(opDefuzz))
+	  opMamdani(new BinaryShadowExpression<T>(opMamdani)),
+	  opSugeno(new NaryShadowExpression<T>(opSugeno))
 	{
 	}
 
@@ -77,9 +83,15 @@ namespace expr {
 	}
 
 	template<class T>
-	Expression<T>* FuzzyFactory<T>::newDefuzz(Expression<T>* l, Expression<T>* r)
+	Expression<T>* FuzzyFactory<T>::newMamdani(Expression<T>* l, Expression<T>* r)
 	{
-		return new BinaryExpressionModel<T>(l, r, opDefuzz);
+		return new BinaryExpressionModel<T>(l, r, opMamdani);
+	}
+
+	template<class T>
+	Expression<T>* FuzzyFactory<T>::newSugeno(std::vector<Expression<T>*> operands)
+	{
+		return new NaryExpressionModel<T>(operands, opSugeno);
 	}
 
 	template<class T>
@@ -119,9 +131,15 @@ namespace expr {
 	}
 
 	template<class T>
-	void FuzzyFactory<T>::changeDefuzz(op::Defuzz<T>* o)
+	void FuzzyFactory<T>::changeMamdani(op::MamdaniDefuzz<T>* o)
 	{
-		this->opDefuzz = o;
+		this->opMamdani = o;
+	}
+
+	template<class T>
+	void FuzzyFactory<T>::changeSugeno(op::SugenoDefuzz<T>* o)
+	{
+		this->opSugeno = o;
 	}
 
 	template<class T>
