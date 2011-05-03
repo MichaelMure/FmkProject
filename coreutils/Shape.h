@@ -48,7 +48,6 @@ namespace coreutils {
 		this->value->setValue(x);
 		T y = this->expr->evaluate();
 
-		std::cout << "X: " << x << " Y: " << y << std::endl;
 		return std::make_pair<T, T>(x, y);
 	}
 }
