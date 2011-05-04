@@ -14,14 +14,14 @@ namespace op {
 	template<class T>
 	class SugenoThen : public op::Then<T>{
 	public:
-		virtual T evaluate(expr::Expression<T> *, expr::Expression<T> *) const;
+		virtual T evaluate(expr::Expression<T> * left, expr::Expression<T>* right) const;
 		virtual T premiseValue();
 	private:
 		T premiseValue;
 	};
 
 	template<class T>
-	T SugenoThen <T>::evaluate(expr::Expression<T> *left, expr::Expression<T> *right) const
+	T SugenoThen <T>::evaluate(expr::Expression<T>* left, expr::Expression<T>* right) const
 	{
 		// TODO : Coder evaluate de Sugeno
 	}
