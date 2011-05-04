@@ -109,43 +109,43 @@ namespace expr {
 	template<class T>
 	void FuzzyFactory<T>::changeAnd(op::And<T>* o)
 	{
-		this->opAnd = o;
+		this->opAnd->setTarget(o);
 	}
 
 	template<class T>
 	void FuzzyFactory<T>::changeOr(op::Or<T>* o)
 	{
-		this->opOr = o;
+		this->opOr->setTarget(o);
 	}
 
 	template<class T>
 	void FuzzyFactory<T>::changeThen(op::Then<T>* o)
 	{
-		this->opThen = o;
+		this->opThen->setTarget(o);
 	}
 
 	template<class T>
 	void FuzzyFactory<T>::changeAgg(op::Agg<T>* o)
 	{
-		this->opAgg = o;
+		this->opAgg->setTarget(o);
 	}
 
 	template<class T>
 	void FuzzyFactory<T>::changeMamdani(op::MamdaniDefuzz<T>* o)
 	{
-		this->opMamdani = o;
+		this->opMamdani->setTarget(o);
 	}
 
 	template<class T>
 	void FuzzyFactory<T>::changeSugeno(op::SugenoDefuzz<T>* o)
 	{
-		this->opSugeno = o;
+		this->opSugeno->setTarget(o);
 	}
 
 	template<class T>
 	void FuzzyFactory<T>::changeNot(op::Not<T>* o)
 	{
-		this->opNot = o;
+		this->opNot->setTarget(o);
 	}
 
 }
