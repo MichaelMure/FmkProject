@@ -57,20 +57,30 @@ void testOp()
 	delete orplus;
 }
 
-void testShape()
+void testTriangle()
 {
-	//utils
-	Interval<float> interval = Interval<float>(0, 30, 1);
+	cout << "Test Triangle";
 
 	//Is
 	IsTriangle<float> tri = IsTriangle<float>(5, 10, 15);
+	ValueModel<float> vm = ValueModel<float>(0);
+	UnaryExpressionModel<float> expr = UnaryExpressionModel<float>(&vm, &tri);
+
+	float s;
+	while(true)
+	{
+		cout << "vm : ";cin >> s;
+		vm.setValue(s);
+		cout << "tips -> " << expr.evaluate() << endl;
+	}
 
 }
 
 void testExample()
 {
 	//utils
-	Interval<float> interval = Interval<float>(0, 30, 1);
+	Interval<float> interval = Interval<float>(5, 25, 1);
+
 	//operators
 	NotMinus1<float> opNot;
 	AndMin<float> opAnd;
@@ -128,6 +138,7 @@ void testExample()
 }
 
 int main() {
+	//testTriangle();
 	testOp();
 	testExample();
 
