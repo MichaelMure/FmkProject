@@ -25,10 +25,11 @@ namespace value {
 				return 0;
 
 			if(value <= this->middle)
-				return  (this->middle - this->min) / (value - this->min);
+				return (value - this->min) / (this->middle - this->min);
 
 			if(value > this->middle)
-							return (this->middle - this->max) / (value - this->max) ;
+				return 1 - (value - this->middle) / (this->max - this->middle);
+
 			return 0;
 		}
 
