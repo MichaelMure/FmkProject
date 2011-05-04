@@ -7,27 +7,30 @@ namespace op {
 	template<class T>
 	class SugenoThen : public op::Then<T>{
 	public:
-		SugenoThen(T);
+		SugenoThen();
 		virtual T evaluate(expr::Expression<T> * left, expr::Expression<T>* right) const;
 		virtual T premiseValue();
 	private:
-		T premValue;
+		T premise;
 	};
 
 	template<class T>
-	SugenoThen <T>::SugenoThen(T _premiseValue):
-		premValue(_premiseValue) {}
+	SugenoThen <T>::SugenoThen()
+		: premise(0)
+	{
+	}
 
 	template<class T>
 	T SugenoThen <T>::evaluate(expr::Expression<T>* left, expr::Expression<T>* right) const
 	{
-		// TODO : Coder evaluate de Sugeno
+		this->premise = left->evaluate();
+		return this->premise * right->evaluate();
 	}
 
 	template<class T>
 	T SugenoThen <T>::premiseValue()
 	{
-		return premValue;
+		return premise;
 	}
 }
 #endif /* SUGENOTHEN_H_ */
