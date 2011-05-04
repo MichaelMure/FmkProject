@@ -23,7 +23,7 @@ namespace op {
 	template<class T>
 	T SugenoThen <T>::evaluate(expr::Expression<T> *left, expr::Expression<T> *right) const
 	{
-
+		// TODO : Coder evaluate de Sugeno
 	}
 
 	template<class T>
