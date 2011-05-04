@@ -12,5 +12,7 @@
 #include "SugenoDefuzz.h"
 #include "ThenMin.h"
 #include "ThenMult.h"
+#include "SugenoThen.h"
+#include "SugenoConclusion.h"
 
 #endif /* OP_H_ */
