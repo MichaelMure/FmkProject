@@ -11,7 +11,7 @@ namespace expr {
 		NaryShadowExpression(NaryExpression<T>* target);
 		virtual ~NaryShadowExpression() {};
 
-		T evaluate(std::vector<Expression<T>*> operands) const;
+		T evaluate(std::vector<Expression<T>*> *operands) const;
 		void setTarget(NaryExpression<T> *target);
 
 	private:
@@ -25,7 +25,7 @@ namespace expr {
 	}
 
 	template<class T>
-	T NaryShadowExpression<T>::evaluate(std::vector<Expression<T>*> operands) const
+	T NaryShadowExpression<T>::evaluate(std::vector<Expression<T>*> *operands) const
 	{
 		return this->target->evaluate(operands);
 	}
