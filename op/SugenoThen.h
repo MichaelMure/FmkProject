@@ -1,10 +1,3 @@
-/*
- * SugenoThen.h
- *
- *  Created on: 4 mai 2011
- *      Author: chtitux
- */
-
 #ifndef SUGENOTHEN_H_
 #define SUGENOTHEN_H_
 

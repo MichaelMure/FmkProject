@@ -1,10 +1,3 @@
-/*
- * SugenoConclusion.h
- *
- *  Created on: 4 mai 2011
- *      Author: chtitux
- */
-
 #ifndef SUGENOCONCLUSION_H_
 #define SUGENOCONCLUSION_H_
 
