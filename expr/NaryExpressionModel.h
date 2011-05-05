@@ -15,7 +15,7 @@ namespace expr {
 		virtual ~NaryExpressionModel() {};
 
 		T evaluate() const;
-		T evaluate(std::vector<const Expression<T>*> operands) const;
+		T evaluate(std::vector<const Expression<T>*> *operands) const;
 
 	private:
 		std::vector<Expression<T>*> _operands;
@@ -38,10 +38,10 @@ namespace expr {
 	}
 
 	template<class T>
-	T NaryExpressionModel<T>::evaluate(std::vector<const Expression<T>*> operands)const
+	T NaryExpressionModel<T>::evaluate(std::vector<const Expression<T>*> *operands) const
 	{
 		if(this->_operator != NULL)
-			return this->_operator->evaluate(this->_operands);
+			return this->_operator->evaluate(operands);
 
 		throw(std::exception());
 	}
