@@ -2,6 +2,7 @@
 #define SUGENODEFUZZ_H_
 
 #include "NaryExpression.h"
+#include "SugenoThen.h"
 
 namespace op {
 	template<class T>
@@ -13,8 +14,24 @@ namespace op {
 	template<class T>
 	T SugenoDefuzz <T>::evaluate(std::vector<expr::Expression<T>*> *operands) const
 	{
-		//TODO
-		return 0;
+		typename std::vector<expr::Expression<T>*>::iterator it = operands->begin();
+		T num = 0;
+		T denum = 0;
+
+		for(; it != operands->end(); it++)
+		{
+			num += (*it)->evaluate();
+		}
+
+		for(it = operands->begin(); it != operands->end(); it++)
+		{
+			denum += ((SugenoThen<T>*) (*it))->premiseValue();
+		}
+
+		if(denum != 0)
+			return num/denum;
+		else
+			return 0;
 	}
 
 }

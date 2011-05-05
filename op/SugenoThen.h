@@ -1,14 +1,14 @@
 #ifndef SUGENOTHEN_H_
 #define SUGENOTHEN_H_
 
-#include "NaryExpression.h"
+#include "Then.h"
 
 namespace op {
 	template<class T>
-	class SugenoThen : public op::Then<T>{
+	class SugenoThen : public Then<T> {
 	public:
 		SugenoThen();
-		virtual T evaluate(expr::Expression<T> * left, expr::Expression<T>* right) const;
+		virtual T evaluate(const expr::Expression<T> * left, const expr::Expression<T>* right) const;
 		virtual T premiseValue();
 	private:
 		T premise;
@@ -21,7 +21,7 @@ namespace op {
 	}
 
 	template<class T>
-	T SugenoThen <T>::evaluate(expr::Expression<T>* left, expr::Expression<T>* right) const
+	T SugenoThen <T>::evaluate(const expr::Expression<T>* left, const expr::Expression<T>* right) const
 	{
 		this->premise = left->evaluate();
 		return this->premise * right->evaluate();
