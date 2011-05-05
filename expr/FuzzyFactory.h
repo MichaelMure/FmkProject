@@ -22,7 +22,7 @@ namespace expr {
 		Expression<T>* newThen(Expression<T>* l, Expression<T>* r);
 		Expression<T>* newAgg(Expression<T>* l, Expression<T>* r);
 		Expression<T>* newMamdani(Expression<T>* l, Expression<T>* r);
-		Expression<T>* newSugeno(std::vector<Expression<T>*> operands);
+		Expression<T>* newSugeno(std::vector<const Expression<T>*> *operands);
 		Expression<T>* newNot(Expression<T>* o);
 		Expression<T>* newIs(Expression<T>* o, value::Is<T>* is);
 
@@ -89,7 +89,7 @@ namespace expr {
 	}
 
 	template<class T>
-	Expression<T>* FuzzyFactory<T>::newSugeno(std::vector<Expression<T>*> operands)
+	Expression<T>* FuzzyFactory<T>::newSugeno(std::vector<const Expression<T>*> *operands)
 	{
 		return new NaryExpressionModel<T>(operands, opSugeno);
 	}

@@ -76,7 +76,7 @@ void testTriangle()
 
 }
 
-void testExample()
+void testMamdani()
 {
 	//utils
 	Interval<float> interval = Interval<float>(5, 25, 1);
@@ -103,7 +103,6 @@ void testExample()
 
 	//values
 	ValueModel<float> service(0);
-	ValueModel<float> food(5);
 	ValueModel<float> tips(0);
 
 	Expression<float> *r =
@@ -137,10 +136,93 @@ void testExample()
 	}
 }
 
+void testSugeno()
+{
+	//utils
+	Interval<float> interval = Interval<float>(5, 25, 1);
+
+	//operators
+	NotMinus1<float> opNot;
+	AndMin<float> opAnd;
+	OrMax<float> opOr;
+	SugenoThen<float> opThen;
+	AggMax<float> opAgg;
+	CogDefuzz<float> opMamdani = CogDefuzz<float>(&interval);
+	SugenoDefuzz<float> opSugeno = SugenoDefuzz<float>();
+
+	//fuzzy expession factory
+	FuzzyFactory<float> f	(&opNot,&opAnd,&opOr,&opThen,&opAgg,&opMamdani, &opSugeno);
+
+	//membership function
+	IsTriangle<float> poor(-5,0,5);
+	IsTriangle<float> good(0,5,10);
+	IsTriangle<float> excellent(5,10,15);
+	IsTriangle<float> rancid(-5,0,5);
+	IsTriangle<float> delicious(5,10,15);
+
+	//values
+	ValueModel<float> service(0);
+	ValueModel<float> food(0);
+
+	//Sugeno conclu
+	vector<float> coefservicefood;
+	coefservicefood.push_back(1);
+	coefservicefood.push_back(1);
+	Expression<float>* SCservicefood = (Expression<float>*) new SugenoConclusion<float>(&coefservicefood);
+
+	vector<float> coefservice;
+	coefservicefood.push_back(1);
+	Expression<float>* SCservice = (Expression<float>*) new SugenoConclusion<float>(&coefservice);
+
+	//Regles
+	vector<const Expression<float>*> regles;
+
+	regles.push_back(
+				f.newThen(
+						f.newOr(
+							f.newIs(&service, &poor),
+							f.newIs(&food, &rancid)
+						),
+						SCservicefood
+				)
+			);
+
+	regles.push_back(
+					f.newThen(
+							f.newIs(&service, &good),
+							SCservice
+					)
+				);
+
+	regles.push_back(
+					f.newThen(
+							f.newOr(
+								f.newIs(&service, &excellent),
+								f.newIs(&food, &delicious)
+							),
+							SCservicefood
+					)
+				);
+
+	//defuzzification
+	Expression<float> *system = f.newSugeno(&regles);
+
+	//apply input
+	float s;
+	while(true)
+	{
+		cout << "service : ";cin >> s;
+		service.setValue(s);
+		cout << "food : ";cin >> s;
+		food.setValue(s);
+		cout << "tips -> " << system->evaluate() << endl;
+	}
+}
+
 int main() {
 	//testTriangle();
 	testOp();
-	testExample();
+	testSugeno();
 
 	return 0;
 }

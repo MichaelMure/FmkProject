@@ -11,7 +11,7 @@ namespace op {
 		virtual T evaluate(const expr::Expression<T> * left, const expr::Expression<T>* right) const;
 		virtual T premiseValue();
 	private:
-		T premise;
+		mutable T premise;
 	};
 
 	template<class T>

@@ -11,19 +11,19 @@ namespace expr {
 	template <class T>
 	class NaryExpressionModel : public NaryExpression<T>, public Expression<T> {
 	public:
-		NaryExpressionModel(std::vector<Expression<T>*> operands, NaryExpression<T>* _operator);
+		NaryExpressionModel(std::vector<const Expression<T>*> *operands, NaryExpression<T>* _operator);
 		virtual ~NaryExpressionModel() {};
 
 		T evaluate() const;
 		T evaluate(std::vector<const Expression<T>*> *operands) const;
 
 	private:
-		std::vector<Expression<T>*> _operands;
-		NaryExpression<T>* _operator;
+		std::vector<const Expression<T>*> *_operands;
+		NaryExpression<T> *_operator;
 	};
 
 	template<class T>
-	NaryExpressionModel<T>::NaryExpressionModel(std::vector<Expression<T>*> operands, NaryExpression<T>* _operator)
+	NaryExpressionModel<T>::NaryExpressionModel(std::vector<const Expression<T>*> *operands, NaryExpression<T>* _operator)
 	: _operands(_operands), _operator(_operator)
 	{
 	}
