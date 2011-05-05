@@ -2,6 +2,7 @@
 #define SUGENODEFUZZ_H_
 
 #include "NaryExpression.h"
+#include "BinaryExpressionModel.h"
 #include "SugenoThen.h"
 
 namespace op {
@@ -25,7 +26,12 @@ namespace op {
 
 		for(it = operands->begin(); it != operands->end(); it++)
 		{
-			denum += ((SugenoThen<T>*) (*it))->premiseValue();
+			expr::BinaryExpressionModel<T> *bem = (expr::BinaryExpressionModel<T>*) (*it);
+			expr::BinaryShadowExpression<T> *bse = (expr::BinaryShadowExpression<T>*) bem->getOperator();
+			Then<T> *th = (Then<T>*) bse->getTarget();
+			SugenoThen<T> *sth = (SugenoThen<T>*) th;
+
+			denum += sth->premiseValue();
 		}
 
 		if(denum != 0)

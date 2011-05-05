@@ -23,7 +23,7 @@ namespace expr {
 	};
 
 	template<class T>
-	NaryExpressionModel<T>::NaryExpressionModel(std::vector<const Expression<T>*> *operands, NaryExpression<T>* _operator)
+	NaryExpressionModel<T>::NaryExpressionModel(std::vector<const Expression<T>*> *_operands, NaryExpression<T>* _operator)
 	: _operands(_operands), _operator(_operator)
 	{
 	}

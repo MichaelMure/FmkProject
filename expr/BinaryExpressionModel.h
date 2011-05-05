@@ -17,6 +17,8 @@ namespace expr {
 		T evaluate() const;
 		T evaluate(const Expression<T>* left, const Expression<T>* right) const;
 
+		BinaryExpression<T>* getOperator();
+
 	private:
 		Expression<T> *_left, *_right;
 		BinaryExpression<T>* _operator;
@@ -44,6 +46,12 @@ namespace expr {
 			return this->_operator->evaluate(left, right);
 
 		throw(std::exception());
+	}
+
+	template<class T>
+	BinaryExpression<T>* BinaryExpressionModel<T>::getOperator()
+	{
+		return this->_operator;
 	}
 }
 #endif /* BINARYEXPRESSIONMODEL_H_ */

@@ -13,6 +13,7 @@ namespace expr {
 
 		T evaluate(const Expression<T>* l, const Expression<T>* r) const;
 		void setTarget(BinaryExpression<T> *target);
+		BinaryExpression<T>* getTarget();
 
 	private:
 		BinaryExpression<T>* target;
@@ -34,6 +35,12 @@ namespace expr {
 	void BinaryShadowExpression<T>::setTarget(BinaryExpression<T> *target)
 	{
 		this->target = target;
+	}
+
+	template<class T>
+	BinaryExpression<T>* BinaryShadowExpression<T>::getTarget()
+	{
+		return this->target;
 	}
 }
 

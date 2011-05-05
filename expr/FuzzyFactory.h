@@ -15,7 +15,8 @@ namespace expr {
 					op::Then<T> *opThen,
 					op::Agg<T> *opAgg,
 					op::MamdaniDefuzz<T> *opMamdani,
-					op::SugenoDefuzz<T> *opSugeno);
+					op::SugenoDefuzz<T> *opSugeno,
+					op::SugenoConclusion<T> *opConclusion);
 
 		Expression<T>* newAnd(Expression<T>* l, Expression<T>* r);
 		Expression<T>* newOr(Expression<T>* l, Expression<T>* r);
@@ -23,6 +24,7 @@ namespace expr {
 		Expression<T>* newAgg(Expression<T>* l, Expression<T>* r);
 		Expression<T>* newMamdani(Expression<T>* l, Expression<T>* r);
 		Expression<T>* newSugeno(std::vector<const Expression<T>*> *operands);
+		Expression<T>* newConclusion(std::vector<const Expression<T>*> *operands);
 		Expression<T>* newNot(Expression<T>* o);
 		Expression<T>* newIs(Expression<T>* o, value::Is<T>* is);
 
@@ -32,12 +34,13 @@ namespace expr {
 		void changeAgg(op::Agg<T>* o);
 		void changeMamdani(op::MamdaniDefuzz<T>* o);
 		void changeSugeno(op::SugenoDefuzz<T>* o);
+		void changeConclusion(op::SugenoConclusion<T>* o);
 		void changeNot(op::Not<T>* o);
 
 	private:
 		UnaryShadowExpression<T> *opNot;
 		BinaryShadowExpression<T> *opAnd, *opOr, *opThen, *opAgg, *opMamdani;
-		NaryShadowExpression<T> *opSugeno;
+		NaryShadowExpression<T> *opSugeno, *opConclusion;
 	};
 
 	template<class T>
@@ -47,14 +50,16 @@ namespace expr {
 						op::Then<T> *opThen,
 						op::Agg<T> *opAgg,
 						op::MamdaniDefuzz<T> *opMamdani,
-						op::SugenoDefuzz<T> *opSugeno)
+						op::SugenoDefuzz<T> *opSugeno,
+						op::SugenoConclusion<T> *opConclusion)
 	: opNot(new UnaryShadowExpression<T>(opNot)),
 	  opAnd(new BinaryShadowExpression<T>(opAnd)),
 	  opOr(new BinaryShadowExpression<T>(opOr)),
 	  opThen(new BinaryShadowExpression<T>(opThen)),
 	  opAgg(new BinaryShadowExpression<T>(opAgg)),
 	  opMamdani(new BinaryShadowExpression<T>(opMamdani)),
-	  opSugeno(new NaryShadowExpression<T>(opSugeno))
+	  opSugeno(new NaryShadowExpression<T>(opSugeno)),
+	  opConclusion(new NaryShadowExpression<T>(opConclusion))
 	{
 	}
 
@@ -92,6 +97,12 @@ namespace expr {
 	Expression<T>* FuzzyFactory<T>::newSugeno(std::vector<const Expression<T>*> *operands)
 	{
 		return new NaryExpressionModel<T>(operands, opSugeno);
+	}
+
+	template<class T>
+	Expression<T>* FuzzyFactory<T>::newConclusion(std::vector<const Expression<T>*> *operands)
+	{
+		return new NaryExpressionModel<T>(operands, opConclusion);
 	}
 
 	template<class T>
@@ -140,6 +151,12 @@ namespace expr {
 	void FuzzyFactory<T>::changeSugeno(op::SugenoDefuzz<T>* o)
 	{
 		this->opSugeno->setTarget(o);
+	}
+
+	template<class T>
+	void FuzzyFactory<T>::changeConclusion(op::SugenoConclusion<T>* o)
+	{
+		this->opConclusion->setTarget(o);
 	}
 
 	template<class T>

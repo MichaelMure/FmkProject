@@ -90,8 +90,13 @@ void testMamdani()
 	CogDefuzz<float> opMamdani = CogDefuzz<float>(&interval);
 	SugenoDefuzz<float> opSugeno = SugenoDefuzz<float>();
 
+	vector<float> coef;
+	coef.push_back(1);
+	coef.push_back(1);
+	SugenoConclusion<float> opConclusion = SugenoConclusion<float>(&coef);
+
 	//fuzzy expession factory
-	FuzzyFactory<float> f	(&opNot,&opAnd,&opOr,&opThen,&opAgg,&opMamdani, &opSugeno);
+	FuzzyFactory<float> f	(&opNot,&opAnd,&opOr,&opThen,&opAgg,&opMamdani, &opSugeno, &opConclusion);
 
 	//membership function
 	IsTriangle<float> poor(-5,0,5);
@@ -150,8 +155,13 @@ void testSugeno()
 	CogDefuzz<float> opMamdani = CogDefuzz<float>(&interval);
 	SugenoDefuzz<float> opSugeno = SugenoDefuzz<float>();
 
+	vector<float> coef;
+	coef.push_back(1);
+	coef.push_back(1);
+	SugenoConclusion<float> opConclusion = SugenoConclusion<float>(&coef);
+
 	//fuzzy expession factory
-	FuzzyFactory<float> f	(&opNot,&opAnd,&opOr,&opThen,&opAgg,&opMamdani, &opSugeno);
+	FuzzyFactory<float> f	(&opNot,&opAnd,&opOr,&opThen,&opAgg,&opMamdani, &opSugeno, &opConclusion);
 
 	//membership function
 	IsTriangle<float> poor(-5,0,5);
@@ -165,14 +175,12 @@ void testSugeno()
 	ValueModel<float> food(0);
 
 	//Sugeno conclu
-	vector<float> coefservicefood;
-	coefservicefood.push_back(1);
-	coefservicefood.push_back(1);
-	Expression<float>* SCservicefood = (Expression<float>*) new SugenoConclusion<float>(&coefservicefood);
+	vector<const Expression<float>*> SCservicefood;
+	SCservicefood.push_back(&service);
+	SCservicefood.push_back(&food);
 
-	vector<float> coefservice;
-	coefservicefood.push_back(1);
-	Expression<float>* SCservice = (Expression<float>*) new SugenoConclusion<float>(&coefservice);
+	vector<const Expression<float>*> SCservice;
+	SCservice.push_back(&service);
 
 	//Regles
 	vector<const Expression<float>*> regles;
@@ -183,14 +191,14 @@ void testSugeno()
 							f.newIs(&service, &poor),
 							f.newIs(&food, &rancid)
 						),
-						SCservicefood
+						f.newConclusion(&SCservicefood)
 				)
 			);
 
 	regles.push_back(
 					f.newThen(
 							f.newIs(&service, &good),
-							SCservice
+							f.newConclusion(&SCservice)
 					)
 				);
 
@@ -200,7 +208,7 @@ void testSugeno()
 								f.newIs(&service, &excellent),
 								f.newIs(&food, &delicious)
 							),
-							SCservicefood
+							f.newConclusion(&SCservicefood)
 					)
 				);
 
@@ -222,6 +230,7 @@ void testSugeno()
 int main() {
 	//testTriangle();
 	testOp();
+	//testMamdani();
 	testSugeno();
 
 	return 0;
